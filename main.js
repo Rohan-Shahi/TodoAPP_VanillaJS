@@ -108,10 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
   //delete the TODO
   const ul = document.querySelector("#lecture-list ul");
   ul.addEventListener("click", (e) => {
-    // console.log(e.target.classList[1] === 'btn-danger')
     if (e.target.classList[1] === "btn-danger") {
       let targetLi = e.target.parentElement.parentElement;
-      // console.log(targetLi.id)
       deleteTodo(targetLi.id);
     } else if (e.target.classList[1] === "fa-trash-alt") {
       let targetLi = e.target.parentElement.parentElement.parentElement;
@@ -125,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
       url: `https://infodev-server.herokuapp.com/api/todos/${id}`,
     })
       .then((res) => {
-        console.log("Todo deleted successfully");
         displayTodo();
       })
       .catch((err) => {
@@ -141,26 +138,8 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (e.target.classList[1] === "fa-check") {
       var targetLi = e.target.parentElement.parentElement.parentElement;
     }
-
-    // let todoName = targetLi.children[0].children[0].childNodes[0];
-    let todoName = targetLi.children[0].children[0].childNodes[0].data;
-
-    let description = targetLi.children[0].children[1].innerText;
-    let checker = targetLi.children[0].children[0].children[0].innerText;
-    let todoPriority;
-    if (checker === "low") {
-      todoPriority = 0;
-    } else if (checker == "medium") {
-      todoPriority = 1;
-    } else {
-      todoPriority = 2;
-    }
-
     let data = {
-      name: todoName,
-      priority: todoPriority,
-      description: description,
-      completed: true,
+      completed: true
     };
     markTodo(data, targetLi.id);
   });
@@ -172,7 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
       data: data,
     })
       .then((res) => {
-        // console.log("Marked todo");
         displayTodo();
       })
       .catch((err) => {
